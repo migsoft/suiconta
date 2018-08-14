@@ -1,0 +1,26 @@
+SUICONTA   ICON ico\SuiConta.ico
+
+Znuevo     ICON ico\Nuevo.ico
+Zmodificar ICON ico\Modificar.ico
+Zguardar   ICON ico\Guardar.ico
+Zcancelar  ICON ico\Cancelar.ico
+Zeliminar  ICON ico\Eliminar.ico
+Zimprimir  ICON ico\Imprimir.ico
+Zsalir     ICON ico\Salir.ico
+Zsalir2    ICON ico\Salir2.ico
+
+Zaceptar   ICON ico\Aceptar.ico
+Zbuscar    ICON ico\Buscar.ico
+Zconsultar ICON ico\Consultar.ico
+Zgirarder  ICON ico\GirarDer.ico
+Zgirarizq  ICON ico\GirarIzq.ico
+Zgrafico   ICON ico\Grafico.ico
+Zcalc      ICON ico\Calc.ico
+Zwriter    ICON ico\Writer.ico
+
+Zproveedor ICON ico\proveedor.ico
+Zcliente   ICON ico\cliente.ico
+Zasiento   ICON ico\asiento.ico
+Zcuenta    ICON ico\cuenta.ico
+Zmayor     ICON ico\mayor.ico
+Zremesa    ICON ico\remesa.ico

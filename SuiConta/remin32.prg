@@ -1,0 +1,179 @@
+PROCEDURE REMIN32()
+LOCAL PAG:=0,LINR:=0,LINL:=0,TOT1:=0
+AbrirDBF("empresa",,,,RUTAREMEMP)
+GO RECNOEMPRESA
+NORNIFEMP:=IMPNIF(CIF)
+NORNOMEMP:=IF(FIELDPOS("NOMEMP")<>0,RTRIM(NOMEMP),RTRIM(EMP))
+NORDIREMP:=RTRIM(DIRECCION)
+NORPOBEMP:=RTRIM(CODPOS+"-"+POBLACION)
+
+SELEC FIN
+GO TOP
+CODBAN2:=VAL(RIGHT(STR(CODBAN),4))
+EURO2:=1
+
+AbrirDBF("CUENTAS",,,,RUTAREMESA)
+SEEK FIN->CODBAN
+NORCTAEMP:=CTA_BAN_SUIZO(BANCTA,20)
+
+SELEC FIN
+FREM2:=FREM
+GO TOP
+DO WHILE .NOT. EOF()
+   SET PRINT ON
+   IF LINL=0
+*** CABECERA GENERAL DEL SOPORTE
+      ?? "02" //A1
+      ?? IF(EURO2=0,"15","65") //A2
+      ?? SPACE(2) //A3
+      ?? DIA(FREM,-6) //B1
+      ?? "0001"   //B2
+      ?? SPACE(6) //B3
+      ?? SPACE(6) //B4
+      ?? SPACE(15) //C1
+      ?? SPACE(4)  //C2
+      ?? SPACE(4)  //C3
+      ?? PADL(SUBSTR(NORCTAEMP,1,4),4,"0") //C4
+      ?? PADL(SUBSTR(NORCTAEMP,5,4),4,"0") //C5
+      ?? SPACE(6)  //C6
+      ?? SPACE(61) //D
+      ?? SPACE(24) //E
+*** CABECERA DE REMESA
+      ?  "11" //A1
+      ?? IF(EURO2=0,"15","65") //A2
+      ?? SPACE(2) //A3
+      ?? DIA(FREM,-6) //B1
+      ?? "0001"   //B2
+      ?? SPACE(6) //B3
+      ?? SPACE(6) //B4
+      ?? PADL(NORNIFEMP,12," ") //C1-1
+      ?? PADL(LTRIM(STR(CODBAN2)),3,"0") //C1-2
+      ?? "1"   //C2
+      ?? SPACE(6) //C3
+      ?? SPACE(5) //C4
+      ?? SPACE(4) //C5
+      ?? SPACE(6) //C6
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,1,4)),4,"0")    //D1
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,5,4)),4,"0")    //D2
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,9,2)),2,"*")    //D3
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,11,10)),10,"0") //D4
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,1,4)),4,"0")    //D5
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,5,4)),4,"0")    //D6
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,9,2)),2,"*")    //D7
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,11,10)),10,"0") //D8
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,1,4)),4,"0")    //D9
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,5,4)),4,"0")    //D10
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,9,2)),2,"*")    //D11
+      ?? PADL(ALLTRIM(SUBSTR(NORCTAEMP,11,10)),10,"0") //D12
+      ?? SPACE(1) //D13
+      ?? SPACE(24) //E
+   ENDIF
+*** REGISTRO INDIVIDUAL I
+   SELEC FIN
+   ?  "25" //A1
+   ?? IF(EURO2=0,"15","65") //A2
+   ?? SPACE(2) //A3
+   ?? PADR(ALLTRIM(NFRA),15," ") //B1
+   ?? DIA(FREM,-6) //B2
+   ?? "0001"   //B3
+   ?? "46" //C1
+   ?? "0000000" //C2
+   ?? SPACE(2) //C3
+   ?? PADL(ALLTRIM(NORPOBEMP),20," ") //D1
+   ?? SPACE(1)  //D2
+   ?? SPACE(15) //E1
+   ?? SPACE(9)  //E2
+   ?? PADL(LTRIM(FTONUMNOR(IMPORTE,EURO2)),9,"0") //E3
+   ?? SPACE(15) //E4
+   ?? DIA(FVTO,-6) //E5
+   ?? SPACE(6) //E6
+   ?? SPACE(6) //E7
+   ?? SPACE(1) //E8
+   ?? SPACE(4) //E9
+   ?? SPACE(16) //F
+*** REGISTRO INDIVIDUAL II
+   SELEC FIN
+   ?  "26" //A1
+   ?? IF(EURO2=0,"15","65") //A2
+   ?? SPACE(2) //A3
+   ?? PADR(ALLTRIM(NFRA),15," ") //B1
+   ?? SPACE(2) //B2
+   ?? "2" //B3
+   ?? DIA(FREM,-6) //B4
+   ?? "2" //B5
+   ?? "0" //B6
+   BANCTA2:=CTA_BAN_SUIZO(BANCTA,20)
+   ?? PADL(ALLTRIM(SUBSTR(BANCTA2,1,4)),4,"0")    //C1
+   ?? PADL(ALLTRIM(SUBSTR(BANCTA2,5,4)),4,"0")    //C2
+   ?? PADL(ALLTRIM(SUBSTR(BANCTA2,9,2)),2,"*")    //C3
+   ?? PADL(ALLTRIM(SUBSTR(BANCTA2,11,10)),10,"0") //C4
+   ?? PADR(NORNOMEMP,34," ") //D1
+   ?? PADR(NOMCTA,34," ") //D2
+   ?? SPACE(20) //D3
+   ?? SPACE(10) //D4
+*** REGISTRO INDIVIDUAL III
+   SELEC FIN
+   ?  "27" //A1
+   ?? IF(EURO2=0,"15","65") //A2
+   ?? SPACE(2) //A3
+   ?? PADR(ALLTRIM(NFRA),15," ") //B1
+   ?? SPACE(2) //B2
+   CODCTA2:=CODCTA
+   AbrirDBF("CUENTAS",,,,RUTAREMESA)
+   SEEK CODCTA2
+   ?? PADR(DIRCTA,34," ")        //B3
+   ?? PADR(RTRIM(CODPOS),05,"0") //B4
+   ?? PADR(POBCTA,20," ")        //B5
+   ?? PADR(LEFT(CODPOS,2),2,"0") //B6
+   ?? "0000000" //B7
+   ?? SPACE(59) //C
+   SET PRINT OFF
+   SELEC FIN
+   TOT1:=TOT1+IMPORTE
+   LINL++
+   SKIP
+ENDDO
+*** REGISTRO FIN DE REMESA
+SET PRINT ON
+?  "71" //A1
+??  IF(EURO2=0,"15","65") //A2
+?? SPACE(2) //A3
+?? DIA(FREM2,-6) //B1
+?? "0001"   //B2
+?? SPACE(6) //B3
+?? SPACE(6) //B4
+?? SPACE(37) //C
+?? SPACE(10) //D1
+?? PADL(LTRIM(FTONUMNOR(TOT1,EURO2)),10,"0") //D2
+?? SPACE(10) //D3
+?? SPACE(6) //D4
+?? SPACE(7) //D5
+?? SPACE(6) //D6
+?? SPACE(6) //D7
+?? SPACE(6) //D8
+?? SPACE(5) //E1
+?? PADL(LTRIM(STR((LINL*3)+2)),7,"0") //E2
+?? PADL(LTRIM(STR(LINL)),6,"0") //E3
+?? SPACE(6) //E4
+*** REGISTRO FIN DE CINTA
+?  "98" //A1
+??  IF(EURO2=0,"15","65") //A2
+?? SPACE(2) //A3
+?? SPACE(22) //B
+?? SPACE(37) //C
+?? SPACE(10) //D1
+?? PADL(LTRIM(FTONUMNOR(TOT1,EURO2)),10,"0") //D2
+?? SPACE(10) //D3
+?? SPACE(6) //D4
+?? SPACE(7) //D5
+?? SPACE(6) //D6
+?? SPACE(6) //D7
+?? SPACE(6) //D8
+?? "00001" //E1
+?? PADL(LTRIM(STR((LINL*3)+4)),7,"0") //E2
+?? PADL(LTRIM(STR(LINL)),6,"0") //E3
+?? SPACE(6) //E4
+?
+SET PRINT OFF
+SET PRINTER TO
+

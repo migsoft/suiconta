@@ -1,0 +1,25 @@
+SUICONTA   ICON \suizowin\ico\SuiConta.ico
+
+Znuevo     ICON \suizowin\ico\Nuevo.ico
+Zmodificar ICON \suizowin\ico\Modificar.ico
+Zguardar   ICON \suizowin\ico\Guardar.ico
+Zcancelar  ICON \suizowin\ico\Cancelar.ico
+Zeliminar  ICON \suizowin\ico\Eliminar.ico
+Zimprimir  ICON \suizowin\ico\Imprimir.ico
+Zsalir     ICON \suizowin\ico\Salir.ico
+
+Zaceptar   ICON \suizowin\ico\Aceptar.ico
+Zbuscar    ICON \suizowin\ico\Buscar.ico
+Zconsultar ICON \suizowin\ico\Consultar.ico
+Zgirarder  ICON \suizowin\ico\GirarDer.ico
+Zgirarizq  ICON \suizowin\ico\GirarIzq.ico
+Zgrafico   ICON \suizowin\ico\Grafico.ico
+Zcalc      ICON \suizowin\ico\Calc.ico
+Zwriter    ICON \suizowin\ico\Writer.ico
+
+Zproveedor ICON \suizowin\ico\proveedor.ico
+Zcliente   ICON \suizowin\ico\cliente.ico
+Zasiento   ICON \suizowin\ico\asiento.ico
+Zcuenta    ICON \suizowin\ico\cuenta.ico
+Zmayor     ICON \suizowin\ico\mayor.ico
+Zremesa    ICON \suizowin\ico\remesa.ico
