@@ -4,3 +4,5 @@ Programa de contabilidad, tiene la gestion de cuentas, los asientos, los balance
 gestion de cobros y pagos independiente de contabilidad, aunque se pueden hacer los asientos desde los cobros, 
 pagos y las facturas. Tambien tiene la posibilidad de importar los datos de contaplus o exportarlos. 
 Es multiempresa y multiusuario
+
+http://teycen.com/programas_harbour.php
